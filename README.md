@@ -1,6 +1,6 @@
 # Medidor-de-Altura-de-Planta-Automatizado
 
-# 🌱 Projeto 01 - Medidor de Altura de Planta Automatizado
+# 🌱 Projeto Medidor de Altura de Planta Automatizado
 
 ---
 
@@ -12,11 +12,11 @@ Criar um sistema automatizado que mede e registra a altura de uma planta periodi
 
 ## 🧰 Materiais Necessários
 
-| **Componente**                        | **Descrição**                                           |
+| **Componente**                       | **Descrição**                                           |
 |--------------------------------------|---------------------------------------------------------|
 | Arduino Uno                          | Placa de controle                                       |
-| Sensor Ultrassônico (HC-SR04)        | Para medir a distância entre o sensor e o topo da planta |
-| Suporte fixo (haste, tripé ou estrutura) | Para posicionar o sensor sobre a planta             |
-| Display LCD (opcional)               | Para exibir a altura em tempo real                      |
+| Sensor Ultrassônico (HC-SR04)        | Para medir a distância entre o sensor e o topo da planta|
+| Suporte fixo (impressão 3D)          | Para posicionar o sensor sobre a planta                 |
+| Display LCD (20x4)                   | Para exibir a altura em tempo real                      |
 | Protoboard + jumpers                 | Para as conexões                                        |
 | Fonte de alimentação ou cabo USB     | Para alimentar o Arduino                                |
