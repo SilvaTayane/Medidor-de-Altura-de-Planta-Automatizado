@@ -12,8 +12,8 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);
 
 NewPing sonar(TRIG_PIN, ECHO_PIN, MAX_DISTANCE);
 
-// Altura máxima do sensor ao solo
-const int altura_total_cm = 30;
+// Altura fixa do sensor ao solo (22 cm)
+const int altura_solo_fixa_cm = 22;
 
 // Array para armazenar leituras válidas (crescentes ou iguais)
 const int NUM_LEITURAS = 100;
@@ -22,14 +22,13 @@ int indice = 0;
 int total_leituras_validas = 0;
 
 // Variáveis para exibição
-int altura_validada = 0;
+int altura_planta = 0;
 int delta = 0;
 
 // Controle de tempo
 unsigned long tempo_inicial = 0;
 
 void setup() {
-  Serial.begin(9600);
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0, 0);
@@ -50,7 +49,8 @@ void loop() {
     return;
   }
 
-  int altura_atual = altura_total_cm - distancia;
+  // Calcula a altura da planta (solo fixo em 22 cm)
+  int altura_atual = altura_solo_fixa_cm - distancia;
   bool leitura_valida = false;
 
   if (total_leituras_validas == 0) {
@@ -69,7 +69,7 @@ void loop() {
                         : altura_atual;
 
     delta = altura_atual - ultima_valida;
-    altura_validada = altura_atual;
+    altura_planta = altura_atual;
 
     // Armazena no array circular
     leituras_validas[indice] = altura_atual;
@@ -88,31 +88,20 @@ void loop() {
     taxa_crescimento = (float)(altura_fim - altura_inicio) / minutos_passados;
   }
 
-  // Exibe somente leituras válidas no LCD
+  // Exibição no LCD
   lcd.setCursor(0, 0);
   lcd.print("Monitor de Altura");
 
   lcd.setCursor(0, 1);
-  lcd.print("Altura: ");
-  lcd.print(altura_validada);
-  lcd.print(" cm     ");
+  lcd.print("Altura Solo: 22cm");
 
   lcd.setCursor(0, 2);
-  lcd.print("Delta: ");
-  lcd.print(delta);
-  lcd.print(" cm        ");
+  lcd.print("Alt. Planta: ");
+  lcd.print(altura_planta);
+  lcd.print(" cm   ");
 
   lcd.setCursor(0, 3);
   lcd.print("Cresc: ");
   lcd.print(taxa_crescimento, 2);
-  lcd.print("cm/min   ");
-
-  // Debug no Serial
-  Serial.print("Altura validada: ");
-  Serial.print(altura_validada);
-  Serial.print(" cm | Delta: ");
-  Serial.print(delta);
-  Serial.print(" cm | Cresc: ");
-  Serial.print(taxa_crescimento, 2);
-  Serial.println(" cm/min");
+  lcd.print(" cm/min");
 }
